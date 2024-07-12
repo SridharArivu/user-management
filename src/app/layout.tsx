@@ -1,6 +1,11 @@
 import type { Metadata } from 'next'
 import { Inter } from 'next/font/google'
 import './globals.css'
+import {cn} from "../lib/utils"
+import SideNavbar from "@/components/SideNavBar";
+import NavBar from '@/components/NavBar';
+import "../app/scroll.css"
+import ReduxProvider from "@/Redux/provider"
 
 const inter = Inter({ subsets: ['latin'] })
 
@@ -16,7 +21,15 @@ export default function RootLayout({
 }) {
   return (
     <html lang="en">
-      <body className={inter.className}>{children}</body>
+      <body className={cn("flex items-start justify-start h-screen w-screen  overflow-y-hidden bg-[#F8F8F8]  ",inter.className)}>
+      <ReduxProvider>
+        <SideNavbar />
+        <div id='scrollbar-hide' className='h-screen w-full overflow-x-scroll overflow-y-auto'>
+          <NavBar/>
+          {children}
+        </div>
+      </ReduxProvider>
+      </body>
     </html>
   )
 }
